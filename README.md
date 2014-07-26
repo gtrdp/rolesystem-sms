@@ -1,17 +1,17 @@
-rolesystem-sms
-==============
-
+Rolesystem SMS Application
+==========================
 SMS interface for Rolesystem.
 
 How to Install
 --------------
-- Please install Gammu before proceed to the next step. The max version for gammu is:
+- Please install Gammu before proceeding to the next step. The recommended version for gammu is: 1.29.x.
 
 Tutorials
 ---------
 - [http://aksauncp.blogspot.com/2013/10/sms-gateway-instalasi-gammu-step-by-step.html](http://aksauncp.blogspot.com/2013/10/sms-gateway-instalasi-gammu-step-by-step.html).
 - [http://tnetter.wordpress.com/2013/12/27/issue-mysql-5-5-unknown-db-driver/](http://tnetter.wordpress.com/2013/12/27/issue-mysql-5-5-unknown-db-driver/).
 - [http://tnetter.wordpress.com/2013/12/28/dokumentasi-install-gammu-1-33xampp-1-8-2-windows-788-1/](http://tnetter.wordpress.com/2013/12/28/dokumentasi-install-gammu-1-33xampp-1-8-2-windows-788-1/).
+- [http://toekangmodem.blogspot.com/2013/05/cara-mudah-install-gammu-windows-dan-kalkun-part-1-persiapan-gammu.html](http://toekangmodem.blogspot.com/2013/05/cara-mudah-install-gammu-windows-dan-kalkun-part-1-persiapan-gammu.html). **most comprehensive**
 
 To-do
 -----
@@ -21,6 +21,10 @@ To-do
 
 Development Log
 ---------------
+*Sat Jul 26 2014*
+- Develop the web application.
+- Designing database tables.
+
 *Wed 07/23/2014*
 - Reinstall awkward ads in web browsers.
 - Tried to downgrade XAMPP to 1.7.2 and GAMMU to 1.27.x.
@@ -31,7 +35,7 @@ Development Log
 
 		Error starting gammuSMSD service
 		Error 1053: The service did not respond to the start or control request in a timely fashion.
-		 (Error starting service)
+		(Error starting service)
 
 - When reading the smsdlog, found this error:
 
