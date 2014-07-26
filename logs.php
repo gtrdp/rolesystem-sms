@@ -19,7 +19,6 @@
   </head>
 
   <body>
-
     <div class="container">
       <div class="header">
         <ul class="nav nav-pills pull-right">

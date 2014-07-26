@@ -1,6 +1,6 @@
-Rolesystem SMS Application
-==========================
-SMS interface for Rolesystem.
+Rolesystem SMS
+==============
+SMS interface for Rolesystem, a consulting application.
 
 How to Install
 --------------
@@ -11,7 +11,8 @@ Tutorials
 - [http://aksauncp.blogspot.com/2013/10/sms-gateway-instalasi-gammu-step-by-step.html](http://aksauncp.blogspot.com/2013/10/sms-gateway-instalasi-gammu-step-by-step.html).
 - [http://tnetter.wordpress.com/2013/12/27/issue-mysql-5-5-unknown-db-driver/](http://tnetter.wordpress.com/2013/12/27/issue-mysql-5-5-unknown-db-driver/).
 - [http://tnetter.wordpress.com/2013/12/28/dokumentasi-install-gammu-1-33xampp-1-8-2-windows-788-1/](http://tnetter.wordpress.com/2013/12/28/dokumentasi-install-gammu-1-33xampp-1-8-2-windows-788-1/).
-- [http://toekangmodem.blogspot.com/2013/05/cara-mudah-install-gammu-windows-dan-kalkun-part-1-persiapan-gammu.html](http://toekangmodem.blogspot.com/2013/05/cara-mudah-install-gammu-windows-dan-kalkun-part-1-persiapan-gammu.html). **most comprehensive**
+- [http://toekangmodem.blogspot.com/2013/05/cara-mudah-install-gammu-windows-dan-kalkun-part-1-persiapan-gammu.html](http://toekangmodem.blogspot.com/2013/05/cara-mudah-install-gammu-windows-dan-kalkun-part-1-persiapan-gammu.html). **<< most comprehensive**
+- [http://www.blog.ghuffar.com/index.php/sms-gateway/9-mengirim-sms-dengan-gammu.html](http://www.blog.ghuffar.com/index.php/sms-gateway/9-mengirim-sms-dengan-gammu.html).
 
 To-do
 -----
