@@ -16,12 +16,15 @@ Tutorials
 
 To-do
 -----
-- Find out the max version of Gammu.
-- Find out the max version of MySQL and XAMPP.
-- Make Gammu working.
+- Make Gammu works.
+- Develop the admin application using CI.
+- Test and debug processor.php.
 
 Development Log
 ---------------
+*Sun Jul 27 2014*
+- Processor complete, needs to be debugged.
+
 *Sat Jul 26 2014*
 - Develop the web application.
 - Designing database tables.
