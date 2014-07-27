@@ -10,7 +10,7 @@
  * clients table's status legends:
  *  - 0: user just freshly registered -> give case selection
  *  - 1: first case selection sent -> give first question 
- *  - $caseID: give the first question
+ *  - kasusID;role_identnext;answer_identnext;ke: 
  *  - $caseID; 
  */
 $mysqli = new mysqli('localhost', 'root', 'root', 'gammu');
@@ -67,6 +67,7 @@ while($row = $raw_data->fetch_object()) {
 
 			if($status == '0'){
 				// initial condition, send case list
+				// identical to index.php in rolesystem
 				$case = $rolesystem->query("SELECT * FROM tab_kasus ORDER BY id");
 
 				$user_message = "Silakan pilih kasus di bawah ini:\r\n";
@@ -84,17 +85,24 @@ while($row = $raw_data->fetch_object()) {
 				// END
 			}elseif($status == '1'){
 				// second condition, send case list
-				// $message contains selected case
+				// identical to ident_gejala.php in rolesystem
 				if(strlen($message) != 2){
 					// wrong format, sends error
-					// reset number status
-				}else{
-					$case = $rolesystem->query("SELECT * FROM tab_role LEFT JOIN tab_gejala ON tab_gejala.gjl_id=tab_role.role_ident 
-									WHERE role_kasus='$kasusid' && role_start=1 ");
+					$query = "INSERT INTO outbox (DestinationNumber, TextDecoded, CreatorID) ".
+						 	 "VALUES ('$phone_number', 'Mohon maaf, terjadi error, silakan mulai dari awal.', 'Gammu')";
+					$mysqli->query($query);
 
-					$user_message = "Silakan pilih kasus di bawah ini:\r\n";
-					while($foo = $case->fetch_object())
-						$user_message .= "$foo->kasus_judul ($foo->kasus_id)";
+					// reset number status
+					$mysqli->query("UPDATE clients SET status = '0' WHERE phone_number = '$phone_number'");
+
+					// END
+				}else{
+					// correct format
+					// $message contains selected case
+					$case = $rolesystem->query("SELECT * FROM tab_role LEFT JOIN tab_gejala ON tab_gejala.gjl_id=tab_role.role_ident 
+									WHERE role_kasus='$message' && role_start=1 ")->fetch_object();
+
+					$user_message = $case->gjl_tanya . "\r\nJawab dengan Y / N.";
 
 					// send SMS
 					$query = "INSERT INTO outbox (DestinationNumber, TextDecoded, CreatorID) ".
@@ -102,10 +110,48 @@ while($row = $raw_data->fetch_object()) {
 					$mysqli->query($query);
 
 					// change user status
-					$mysqli->query("UPDATE clients SET status = '1' WHERE phone_number = '$phone_number'");
+					// new status: kasusID;role_identnext;answer_identnext;ke
+					$new_status = $message.';'.$case->role_identnext.';'.$case->answer_identnext.';1';
+					$mysqli->query("UPDATE clients SET status = '$new_status' WHERE phone_number = '$phone_number'");
 
 					// END
 				}
+			}else{
+				// might be in consulting process, send appropriate response
+				// identical to ident_gejala2.php in rolesystems
+				if(strlen($message) != 1){
+					// wrong format, sends error
+					$query = "INSERT INTO outbox (DestinationNumber, TextDecoded, CreatorID) ".
+						 	 "VALUES ('$phone_number', 'Mohon maaf, terjadi error, silakan mulai dari awal.', 'Gammu')";
+					$mysqli->query($query);
+
+					// reset number status
+					$mysqli->query("UPDATE clients SET status = '0' WHERE phone_number = '$phone_number'");
+
+					// END
+				}else{
+					// correct format
+					// $message contains yes (Y) or no (N)
+					// main switch case
+					
+					$case = $rolesystem->query("SELECT * FROM tab_role LEFT JOIN tab_gejala ON tab_gejala.gjl_id=tab_role.role_ident 
+									WHERE role_kasus='$message' && role_start=1 ")->fetch_object();
+
+					$user_message = $case->gjl_tanya . "\r\nJawab dengan Y / N.";
+
+					// send SMS
+					$query = "INSERT INTO outbox (DestinationNumber, TextDecoded, CreatorID) ".
+						 	 "VALUES ('$phone_number', '$user_message', 'Gammu')";
+					$mysqli->query($query);
+
+					// change user status
+					// new status: kasusID;role_identnext;answer_identnext;ke
+					$new_status = $message.';'.$case->role_identnext.';'.$case->answer_identnext.';1';
+					$mysqli->query("UPDATE clients SET status = '$new_status' WHERE phone_number = '$phone_number'");
+
+					// END
+				}
+
 			}
 		}else{
 			// notify user
@@ -114,10 +160,6 @@ while($row = $raw_data->fetch_object()) {
 			$mysqli->query($query);
 		}
 	}
-}
-
-function give_error(){
-
 }
 
 ?>
