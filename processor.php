@@ -10,8 +10,7 @@
  * clients table's status legends:
  *  - 0: user just freshly registered -> give case selection
  *  - 1: first case selection sent -> give first question 
- *  - kasusID;role_identnext;answer_identnext;ke: 
- *  - $caseID; 
+ *  - kasusID;role_identnext;answer_identnext;ke: consultation process
  */
 $mysqli = new mysqli('localhost', 'root', 'root', 'gammu');
 $rolesystem = new mysqli('localhost', 'root', 'root', 'rolesystem');
@@ -132,28 +131,55 @@ while($row = $raw_data->fetch_object()) {
 				}else{
 					// correct format
 					// $message contains yes (Y) or no (N)
-					// main switch case
-					
-					$case = $rolesystem->query("SELECT * FROM tab_role LEFT JOIN tab_gejala ON tab_gejala.gjl_id=tab_role.role_ident 
-									WHERE role_kasus='$message' && role_start=1 ")->fetch_object();
 
-					$user_message = $case->gjl_tanya . "\r\nJawab dengan Y / N.";
+					// explode the status
+					// kasusID;role_identnext;answer_identnext;ke
+					$status = explode(";", $status);
+					$kasus_id = $status[0];
+					$role_identnext = $status[1];
+					$answer_identnext = $status[2];
+					$ke = $status[3] + 1;
 
-					// send SMS
-					$query = "INSERT INTO outbox (DestinationNumber, TextDecoded, CreatorID) ".
+					// main switching
+					if($answer_identnext == '0'){
+						// next question
+						$case = $rolesystem->query("SELECT * FROM tab_role LEFT JOIN tab_gejala ON tab_gejala.gjl_id=tab_role.role_ident 
+						WHERE role_kasus='$kasusid' && role_start=0 && role_ident='$role_identnext' ")->fetch_object();
+
+						$user_message = "Pertanyaan ke-$ke:\r\n".$case->gjl_tanya . "\r\nJawab dengan Y / N.";
+
+						// send SMS
+						$query = "INSERT INTO outbox (DestinationNumber, TextDecoded, CreatorID) ".
+							 	 "VALUES ('$phone_number', '$user_message', 'Gammu')";
+						$mysqli->query($query);
+
+						// change user status
+						// new status: kasusID;role_identnext;answer_identnext;ke
+						$new_status = $kasus_id.';'.$case->role_identnext.';'.$case->answer_identnext.';'.$ke;
+						$mysqli->query("UPDATE clients SET status = '$new_status' WHERE phone_number = '$phone_number'");
+
+						// END
+					}elseif ($answer_identnext == '1') {
+						// decision
+						$decision = $mysqli->query("SELECT * FROM tab_diag WHERE diag_id='$role_identnext'")->fetch_object();
+
+						$user_message = 'Diagnosis: ' . $decision->diag_hasil;
+						$user_message.= "\r\nSaran: " . $decision->diag_saran;
+
+						// send message
+						$query = "INSERT INTO outbox (DestinationNumber, TextDecoded, CreatorID) ".
 						 	 "VALUES ('$phone_number', '$user_message', 'Gammu')";
-					$mysqli->query($query);
+						$mysqli->query($query);
 
-					// change user status
-					// new status: kasusID;role_identnext;answer_identnext;ke
-					$new_status = $message.';'.$case->role_identnext.';'.$case->answer_identnext.';1';
-					$mysqli->query("UPDATE clients SET status = '$new_status' WHERE phone_number = '$phone_number'");
+						// reset status
+						$mysqli->query("UPDATE clients SET status = '0' WHERE phone_number = '$phone_number'");
 
-					// END
+						// END
+					}
 				}
-
 			}
 		}else{
+			// user is not registered yet
 			// notify user
 			$query = "INSERT INTO outbox (DestinationNumber, TextDecoded, CreatorID) ".
 					 "VALUES ('$phone_number', 'Maaf, anda belum terdaftar, silakan daftar dengan REG <nama>.', 'Gammu')";
