@@ -16,7 +16,7 @@ Tutorials
 
 To-do
 -----
-- Make Gammu works.
+- Make Gammu works. >> Try to user kalkun.
 - Develop the admin application using CI.
 - Test and debug processor.php.
 
