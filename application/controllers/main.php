@@ -4,7 +4,7 @@ class Main extends CI_Controller {
 
 	public function index()
 	{
-		redirect('main/dashboard');
+		redirect('main/login');
 	}
 
 	public function dashboard()
@@ -21,11 +21,15 @@ class Main extends CI_Controller {
 		$this->load->template('users', $data);
 	}
 
-	public function logs()
+	public function logs($id = '')
 	{
-		$data['page'] = 'logs';
+		if($id != ''){
+			$data['page'] = 'logs';
 
-		$this->load->template('logs', $data);
+			$this->load->template('logs', $data);
+		}else{
+			redirect('main/users');
+		}
 	}
 
 	public function send_sms()
@@ -38,8 +42,9 @@ class Main extends CI_Controller {
 	public function login()
 	{
 		$data['page'] = 'login';
+		$data['notif'] = false;
 
-		$this->load->template('login', $data);
+		$this->load->view('login', $data);
 	}
 
 	public function login_processor()
@@ -49,7 +54,7 @@ class Main extends CI_Controller {
 
 	public function logout()
 	{
-		
+
 	}
 }
 
