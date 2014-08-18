@@ -22,6 +22,9 @@ To-do
 
 Development Log
 ---------------
+*Mon Aug 18 22:21:03 WIB 2014*
+- Integrating CI to the system
+
 *Sun Jul 27 2014*
 - Processor complete, needs to be debugged.
 
