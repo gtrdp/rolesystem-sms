@@ -35,11 +35,10 @@
         <h2 class="form-signin-heading">Please sign in</h2>
         <?php if($notif): ?>
           <div class="alert alert-danger alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <?php echo $notif; ?>
+            <strong>Error!</strong> <?php echo $notif; ?>
           </div>
         <?php endif; ?>
-        <input name="username" type="text" class="form-control" placeholder="Email address" required autofocus>
+        <input name="username" type="text" class="form-control" placeholder="Admin Username" required autofocus>
         <input name="password" type="password" class="form-control" placeholder="Password" required>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
       </form>

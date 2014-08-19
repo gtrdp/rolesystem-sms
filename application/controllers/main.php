@@ -42,19 +42,32 @@ class Main extends CI_Controller {
 	public function login()
 	{
 		$data['page'] = 'login';
-		$data['notif'] = false;
+		$data['notif'] = $this->session->flashdata('notif');
 
 		$this->load->view('login', $data);
 	}
 
 	public function login_processor()
 	{
+		$username = $this->input->post('username');
+		$password = md5($this->input->post('password'));
 
+		$this->load->model('main_model');
+		$result = $this->main_model->login_check($username, $password);
+
+		if($result){
+			$this->session->set_userdata('userid', $result);
+			redirect('main/dashboard');
+		}else{
+			$this->session->set_flashdata('notif', 'Wrong username or password, please try again.');
+			redirect('main/login');
+		}
 	}
 
 	public function logout()
 	{
-
+		$this->session->sess_destroy();
+		redirect('main/login');
 	}
 }
 
