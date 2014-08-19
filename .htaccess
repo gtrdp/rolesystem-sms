@@ -5,7 +5,7 @@ Options +FollowSymLinks
 RewriteEngine on
 
 #This line depends on the script's location
-RewriteBase /~gtrdp/rolesystem-sms/
+RewriteBase /rolesystem-sms/
 
 RewriteCond $1 !^(index\.php|resources|robots\.txt)
 RewriteCond %{REQUEST_FILENAME} !-f

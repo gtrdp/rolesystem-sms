@@ -1,250 +1,164 @@
 -- phpMyAdmin SQL Dump
--- version 2.8.0.3
+-- version 3.2.0.1
 -- http://www.phpmyadmin.net
--- 
+--
 -- Host: localhost
--- Generation Time: Jun 10, 2006 at 11:08 PM
--- Server version: 5.0.18
--- PHP Version: 5.1.3
--- 
--- Database: `smsd`
--- 
+-- Waktu pembuatan: 19. Agustus 2014 jam 16:12
+-- Versi Server: 5.1.37
+-- Versi PHP: 5.3.0
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+--
+-- Database: `gammu`
+--
 
 -- --------------------------------------------------------
 
--- 
--- Table structure for table `daemons`
--- 
+--
+-- Struktur dari tabel `daemons`
+--
 
-CREATE TABLE `daemons` (
+CREATE TABLE IF NOT EXISTS `daemons` (
   `Start` text NOT NULL,
   `Info` text NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- 
--- Dumping data for table `daemons`
--- 
+--
+-- Dumping data untuk tabel `daemons`
+--
 
 
 -- --------------------------------------------------------
 
--- 
--- Table structure for table `gammu`
--- 
+--
+-- Struktur dari tabel `gammu`
+--
 
-CREATE TABLE `gammu` (
-  `Version` integer NOT NULL default '0'
+CREATE TABLE IF NOT EXISTS `gammu` (
+  `Version` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- 
--- Dumping data for table `gammu`
--- 
+--
+-- Dumping data untuk tabel `gammu`
+--
 
-INSERT INTO `gammu` (`Version`) VALUES (13);
+INSERT INTO `gammu` (`Version`) VALUES
+(13);
 
 -- --------------------------------------------------------
 
--- 
--- Table structure for table `inbox`
--- 
+--
+-- Struktur dari tabel `inbox`
+--
 
-CREATE TABLE `inbox` (
-  `UpdatedInDB` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  `ReceivingDateTime` timestamp NOT NULL default '0000-00-00 00:00:00',
+CREATE TABLE IF NOT EXISTS `inbox` (
+  `UpdatedInDB` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `ReceivingDateTime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `Text` text NOT NULL,
-  `SenderNumber` varchar(20) NOT NULL default '',
-  `Coding` enum('Default_No_Compression','Unicode_No_Compression','8bit','Default_Compression','Unicode_Compression') NOT NULL default 'Default_No_Compression',
+  `SenderNumber` varchar(20) NOT NULL DEFAULT '',
+  `Coding` enum('Default_No_Compression','Unicode_No_Compression','8bit','Default_Compression','Unicode_Compression') NOT NULL DEFAULT 'Default_No_Compression',
   `UDH` text NOT NULL,
-  `SMSCNumber` varchar(20) NOT NULL default '',
-  `Class` integer NOT NULL default '-1',
-  `TextDecoded` text NOT NULL default '',
-  `ID` integer unsigned NOT NULL auto_increment,
+  `SMSCNumber` varchar(20) NOT NULL DEFAULT '',
+  `Class` int(11) NOT NULL DEFAULT '-1',
+  `TextDecoded` text NOT NULL,
+  `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `RecipientID` text NOT NULL,
-  `Processed` enum('false','true') NOT NULL default 'false',
-  PRIMARY KEY `ID` (`ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- 
--- Dumping data for table `inbox`
--- 
-
-
--- --------------------------------------------------------
-
--- 
--- Table structure for table `outbox`
--- 
-
-CREATE TABLE `outbox` (
-  `UpdatedInDB` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  `InsertIntoDB` timestamp NOT NULL default '0000-00-00 00:00:00',
-  `SendingDateTime` timestamp NOT NULL default '0000-00-00 00:00:00',
-  `SendBefore` time NOT NULL DEFAULT '23:59:59',
-  `SendAfter` time NOT NULL DEFAULT '00:00:00',
-  `Text` text,
-  `DestinationNumber` varchar(20) NOT NULL default '',
-  `Coding` enum('Default_No_Compression','Unicode_No_Compression','8bit','Default_Compression','Unicode_Compression') NOT NULL default 'Default_No_Compression',
-  `UDH` text,
-  `Class` integer default '-1',
-  `TextDecoded` text NOT NULL default '',
-  `ID` integer unsigned NOT NULL auto_increment,
-  `MultiPart` enum('false','true') default 'false',
-  `RelativeValidity` integer default '-1',
-  `SenderID` varchar(255),
-  `SendingTimeOut` timestamp NULL default '0000-00-00 00:00:00',
-  `DeliveryReport` enum('default','yes','no') default 'default',
-  `CreatorID` text NOT NULL,
-  PRIMARY KEY `ID` (`ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-CREATE INDEX outbox_date ON outbox(SendingDateTime, SendingTimeOut);
-CREATE INDEX outbox_sender ON outbox(SenderID);
-
--- 
--- Dumping data for table `outbox`
--- 
-
-
--- --------------------------------------------------------
-
--- 
--- Table structure for table `outbox_multipart`
--- 
-
-CREATE TABLE `outbox_multipart` (
-  `Text` text,
-  `Coding` enum('Default_No_Compression','Unicode_No_Compression','8bit','Default_Compression','Unicode_Compression') NOT NULL default 'Default_No_Compression',
-  `UDH` text,
-  `Class` integer default '-1',
-  `TextDecoded` text default NULL,
-  `ID` integer unsigned NOT NULL default '0',
-  `SequencePosition` integer NOT NULL default '1',
-  PRIMARY KEY (`ID`, `SequencePosition`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- 
--- Dumping data for table `outbox_multipart`
--- 
-
-
--- --------------------------------------------------------
-
--- 
--- Table structure for table `pbk`
--- 
-
-CREATE TABLE `pbk` (
-  `ID` integer NOT NULL auto_increment,
-  `GroupID` integer NOT NULL default '-1',
-  `Name` text NOT NULL,
-  `Number` text NOT NULL,
+  `Processed` enum('false','true') NOT NULL DEFAULT 'false',
   PRIMARY KEY (`ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=29 ;
 
--- 
--- Dumping data for table `pbk`
--- 
-
-
--- --------------------------------------------------------
-
--- 
--- Table structure for table `pbk_groups`
--- 
-
-CREATE TABLE `pbk_groups` (
-  `Name` text NOT NULL,
-  `ID` integer NOT NULL auto_increment,
-  PRIMARY KEY `ID` (`ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- 
--- Dumping data for table `pbk_groups`
--- 
-
-
--- --------------------------------------------------------
-
--- 
--- Table structure for table `phones`
--- 
-
-CREATE TABLE `phones` (
-  `ID` text NOT NULL,
-  `UpdatedInDB` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  `InsertIntoDB` timestamp NOT NULL default '0000-00-00 00:00:00',
-  `TimeOut` timestamp NOT NULL default '0000-00-00 00:00:00',
-  `Send` enum('yes','no') NOT NULL default 'no',
-  `Receive` enum('yes','no') NOT NULL default 'no',
-  `IMEI` varchar(35) NOT NULL,
-  `Client` text NOT NULL,
-  `Battery` integer NOT NULL DEFAULT -1,
-  `Signal` integer NOT NULL DEFAULT -1,
-  `Sent` int NOT NULL DEFAULT 0,
-  `Received` int NOT NULL DEFAULT 0,
-  PRIMARY KEY (`IMEI`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- 
--- Dumping data for table `phones`
--- 
-
--- --------------------------------------------------------
-
--- 
--- Table structure for table `sentitems`
--- 
-
-CREATE TABLE `sentitems` (
-  `UpdatedInDB` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  `InsertIntoDB` timestamp NOT NULL default '0000-00-00 00:00:00',
-  `SendingDateTime` timestamp NOT NULL default '0000-00-00 00:00:00',
-  `DeliveryDateTime` timestamp NULL,
-  `Text` text NOT NULL,
-  `DestinationNumber` varchar(20) NOT NULL default '',
-  `Coding` enum('Default_No_Compression','Unicode_No_Compression','8bit','Default_Compression','Unicode_Compression') NOT NULL default 'Default_No_Compression',
-  `UDH` text NOT NULL,
-  `SMSCNumber` varchar(20) NOT NULL default '',
-  `Class` integer NOT NULL default '-1',
-  `TextDecoded` text NOT NULL default '',
-  `ID` integer unsigned NOT NULL default '0',
-  `SenderID` varchar(255) NOT NULL,
-  `SequencePosition` integer NOT NULL default '1',
-  `Status` enum('SendingOK','SendingOKNoReport','SendingError','DeliveryOK','DeliveryFailed','DeliveryPending','DeliveryUnknown','Error') NOT NULL default 'SendingOK',
-  `StatusError` integer NOT NULL default '-1',
-  `TPMR` integer NOT NULL default '-1',
-  `RelativeValidity` integer NOT NULL default '-1',
-  `CreatorID` text NOT NULL,
-  PRIMARY KEY (`ID`, `SequencePosition`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-CREATE INDEX sentitems_date ON sentitems(DeliveryDateTime);
-CREATE INDEX sentitems_tpmr ON sentitems(TPMR);
-CREATE INDEX sentitems_dest ON sentitems(DestinationNumber);
-CREATE INDEX sentitems_sender ON sentitems(SenderID);
-
--- 
--- Dumping data for table `sentitems`
--- 
-
-
--- 
--- Triggers for setting default timestamps
--- 
-
+--
+-- Triggers `inbox`
+--
+DROP TRIGGER IF EXISTS `gammu`.`inbox_timestamp`;
 DELIMITER //
-
-CREATE TRIGGER inbox_timestamp BEFORE INSERT ON inbox
-FOR EACH ROW
-BEGIN
+CREATE TRIGGER `gammu`.`inbox_timestamp` BEFORE INSERT ON `gammu`.`inbox`
+ FOR EACH ROW BEGIN
     IF NEW.ReceivingDateTime = '0000-00-00 00:00:00' THEN
         SET NEW.ReceivingDateTime = CURRENT_TIMESTAMP();
     END IF;
-END;//
+END
+//
+DELIMITER ;
 
-CREATE TRIGGER outbox_timestamp BEFORE INSERT ON outbox
-FOR EACH ROW
-BEGIN
+--
+-- Dumping data untuk tabel `inbox`
+--
+
+INSERT INTO `inbox` (`UpdatedInDB`, `ReceivingDateTime`, `Text`, `SenderNumber`, `Coding`, `UDH`, `SMSCNumber`, `Class`, `TextDecoded`, `ID`, `RecipientID`, `Processed`) VALUES
+('2014-08-19 09:57:16', '2013-09-26 08:29:35', '0065006D006E0067006E0079006100200062006100700061006B006D00750020006B006E0061007000610065003F0020006B006D0020006700610020007000650072006E0061006800200063006500720069007400610020002E005F005F005F002E', '+6281578728475', 'Default_No_Compression', '', '+62816124', -1, 'emngnya bapakmu knapae? km ga pernah cerita .___.', 1, '', 'false'),
+('2014-08-19 09:57:16', '2013-09-26 08:31:43', '006F006B002C0020006D006F006700610032002000730065006D00750061002000630065007000650074002000620065007200650073002000260020006200610069006B003200200061006A0061002E0020006B006C006F0020006100640061002000790067002000620069007300610020006400620061006E0074007500200062006F006C006500680020006B006F006B002000620069006C0061006E0067002C0020006B006C006F006B006D0020006D007300680020007000650072006300610079006100200061006B007500200061006A00610020007300690068002E0020006B006C006F0020006700610020006400690061006E00670067006500700020007900610020006700700070002E', '+6281578728475', 'Default_No_Compression', '', '+62816124', -1, 'ok, moga2 semua cepet beres & baik2 aja. klo ada yg bisa dbantu boleh kok bilang, klokm msh percaya aku aja sih. klo ga dianggep ya gpp.', 2, '', 'false'),
+('2014-08-19 09:57:16', '2013-09-26 09:51:10', '004D00610073002C00200069006200750020006E0061006E00790061006B00200067006D0061006E00610020006B0061006C006F0020006E0065006C0070006F006E00200069006E00730070006500630074002C0020006E0067006F006D006F006E00670020006E0065006B00200062006100700061006B00200069006C0061006E0067', '+6287838887338', 'Default_No_Compression', '', '+62818445009', -1, 'Mas, ibu nanyak gmana kalo nelpon inspect, ngomong nek bapak ilang', 3, '', 'false'),
+('2014-08-19 09:57:16', '2013-09-26 10:00:57', '0044006900720075006D0061006800200061006400610020006E006F006D00650072006E00790061002000690073006E0070006500630074', '+6287838887338', 'Default_No_Compression', '', '+62818445009', -1, 'Dirumah ada nomernya isnpect', 4, '', 'false'),
+('2014-08-19 09:57:16', '2013-09-26 10:02:42', '00440065006B0020006400680061007200610020007900670020006E0065006C0070006F006E', '+6287838887338', 'Default_No_Compression', '', '+62818445009', -1, 'Dek dhara yg nelpon', 5, '', 'false'),
+('2014-08-19 09:57:17', '2013-09-26 10:37:27', '004E006F006D006F0072006E0079002000670061006B0020006B00740065006D0075002C00200069006E00690020006D0061007300690068002000620065006C006F006D0020006E0065006C0070006F006E', '+6287838887338', 'Default_No_Compression', '', '+62818445009', -1, 'Nomorny gak ktemu, ini masih belom nelpon', 6, '', 'false'),
+('2014-08-19 09:57:17', '2013-09-26 10:49:02', '0050006F00730069007300690020006D006F0074006F00720020006400690074006900740070006B0061006E002000640069006D0061006E0061003F', '+6285743654408', 'Default_No_Compression', '', '+62816124', -1, 'Posisi motor dititpkan dimana?', 7, '', 'false'),
+('2014-08-19 09:57:17', '2013-09-26 10:57:34', '004F006D0061002C00200067006D0061006E00610020006B0061006C006F00200063006F006200610020006E0061006E00790061006B002000730061006D0061002000700061006300610072006E007900200062006100700061006B002C0020006D0061006E006100200074006100750020006400690061002000700075006E0079006100200069006E0066006F', '+6281392391934', 'Default_No_Compression', '', '+6281100000', -1, 'Oma, gmana kalo coba nanyak sama pacarny bapak, mana tau dia punya info', 8, '', 'false'),
+('2014-08-19 09:57:17', '2013-09-26 11:00:43', '0044006900200068006100700065002000690062007500200061006400610020006E006F006D006F0072006E0079', '+6281392391934', 'Default_No_Compression', '', '+6281100000', -1, 'Di hape ibu ada nomorny', 9, '', 'false'),
+('2014-08-19 09:57:18', '2013-09-26 11:07:04', '006D0061007300200074006C006E00670020006D00740072006E0079006100200079006700200064006900700061006B00610069002000620070006B00650020006F0070006F0020006D0061007300200073006F0061006C00650020006E0065006B0020006D00650067006100700072006F00200074006D006E0020007300790020007400610075002000790067002000700061006B006100690020006D007400720020006900740075', '+6289676848848', 'Default_No_Compression', '', '+6289644000001', -1, 'mas tlng mtrnya yg dipakai bpke opo mas soale nek megapro tmn sy tau yg pakai mtr itu', 10, '', 'false'),
+('2014-08-19 09:57:18', '2013-09-26 11:10:23', '006D0061007300200074006C006E0067002000730061006D007000650061006E0020006D0075006E00670067006100680020006D0061006E00670020006D0061006B0061006D002000730079006500680020006D00610075006C0061006E00610020006D00610068006700720069006200690020006D0062006F006B0020006D0065006E006F0077006F002000740065006E002000720069006B006F', '+6289676848848', 'Default_No_Compression', '', '+628964011134', -1, 'mas tlng sampean munggah mang makam syeh maulana mahgribi mbok menowo ten riko', 11, '', 'false'),
+('2014-08-19 09:57:18', '2013-09-26 11:13:10', '00740061006E007900610020006F00720061006E0067002000730069007400750020006D006100730020006D0061006B0061006D002000730079006500680020006D00610075006C0061006E0061002000700061006400610020007400610075002000730065006D007500610020006D007500640061006800320061006E002000740064007200200064006900730061006E0061', '+6289676848848', 'Default_No_Compression', '', '+628964011134', -1, 'tanya orang situ mas makam syeh maulana pada tau semua mudah2an tdr disana', 12, '', 'false'),
+('2014-08-19 09:57:18', '2013-09-26 11:16:49', '006D00610073002C002000730079002000680061006E00670067006F0072006F002000740065006D0065006E0079006100200068006100720079006F002C0020006B006C0075002000640069002000700061007200650061006E006F006D00200064006900700061006E006700670069006C0020007900690074006E006F002E0020007300790020007300750064006100680020006D0069006E00740061002000620061006E007400750061006E002000740065006D0065006E0020007300610072002000750074006B0020006D0065006D00620061006E007400750020006D0065006E006300610072006900200062006100700061006B002E00200074006F006C006F006E0067002000730065007400690061007000200061006400610020007000650072006B0065006D00620061006E', '+6281904066144', 'Default_No_Compression', '050003460201', '+62818445009', -1, 'mas, sy hanggoro temenya haryo, klu di pareanom dipanggil yitno. sy sudah minta bantuan temen sar utk membantu mencari bapak. tolong setiap ada perkemban', 13, '', 'false'),
+('2014-08-19 09:57:18', '2013-09-26 11:16:54', '00670061006E00200073007900200064006900200073006D0073002E0020006E007500770075006E', '+6281904066144', 'Default_No_Compression', '050003460202', '+62818445009', -1, 'gan sy di sms. nuwun', 14, '', 'false'),
+('2014-08-19 09:57:19', '2013-09-26 11:20:04', '006E006A0065006E0065006E00670061006E00200061006D00610020007300690061007000610020003F002000750064006100680020006C00610070006F00720061006E0020006B006500200070006F007300200073006100720020003F', '+6281904066144', 'Default_No_Compression', '', '+62818445009', -1, 'njenengan ama siapa ? udah laporan ke pos sar ?', 15, '', 'false'),
+('2014-08-19 09:57:19', '2013-09-26 11:21:18', '0049006200750020006E0061006E00790061006B002C0020006E0079006100720069006E0079006100200064006D0061006E006100200061006A0061003F0020004B0069007200610020006B00690072006100200073006C0061006D006100740020006100700061002000670061006B003F', '+6281392391934', 'Default_No_Compression', '', '+6281100000', -1, 'Ibu nanyak, nyarinya dmana aja? Kira kira slamat apa gak?', 16, '', 'false'),
+('2014-08-19 09:57:19', '2013-09-26 11:22:25', '006F006B002E002E0073006D006F0067006100200063006500700061007400200064006900740065006D0075006B0061006E', '+6281904066144', 'Default_No_Compression', '', '+62818445009', -1, 'ok..smoga cepat ditemukan', 17, '', 'false'),
+('2014-08-19 09:57:19', '2013-09-26 11:31:14', '004D0061007300200069006200750020006E0061006E00790061006B002C0020006D006100730069006800200061006400610020006B0065006D0075006E0067006B0069006E0061006E00200062006100700061006B00200073006C0061006D00610074006B0061006E003F', '+6281392391934', 'Default_No_Compression', '', '+6281100000', -1, 'Mas ibu nanyak, masih ada kemungkinan bapak slamatkan?', 18, '', 'false'),
+('2014-08-19 09:57:20', '2013-09-26 12:27:21', '0047006D0061006E00610020006D00610073003F', '+6281392391934', 'Default_No_Compression', '', '+6281100000', -1, 'Gmana mas?', 19, '', 'false'),
+('2014-08-19 09:57:20', '2013-09-26 12:30:03', '00540065006D007000610074002000700065006E00690074006900700061006E0020007300700065006400610020006D006F0074006F0072006E0079002000670061006B0020006E0067006F006D006F006E0067002000610070006100200061007000610020006D00610073003F', '+6281392391934', 'Default_No_Compression', '', '+6281100000', -1, 'Tempat penitipan speda motorny gak ngomong apa apa mas?', 20, '', 'false'),
+('2014-08-19 09:57:20', '2013-09-26 12:33:23', '0048006500200065002C00200062006100770061002000700075006C0061006E006700200061006A0061', '+6281392391934', 'Default_No_Compression', '', '+6281100000', -1, 'He e, bawa pulang aja', 21, '', 'false'),
+('2014-08-19 09:57:20', '2013-09-26 13:35:57', '00470061006B0020006D0061007500200061007000610020006100700061002C00200061007400750020006100740069002000790061', '+6281392391934', 'Default_No_Compression', '', '+6281100000', -1, 'Gak mau apa apa, atu ati ya', 22, '', 'false'),
+('2014-08-19 09:57:20', '2013-09-26 13:38:06', '00490062007500200075006400610068002000740061006400690020006D0061006B0061006E002000640069006B00690074', '+6281392391934', 'Default_No_Compression', '', '+6281100000', -1, 'Ibu udah tadi makan dikit', 23, '', 'false'),
+('2014-08-19 09:57:21', '2013-09-26 13:43:37', '004D0062006B0020007000750074007200690020006E00670061006E00740075006B002000670061006B003F0020004B0061006C006F0020006900790061002000670061006B00200075007300610068002000620061007700610020007300700065006400610020006D006F0074006F0072', '+6281392391934', 'Default_No_Compression', '', '+6281100000', -1, 'Mbk putri ngantuk gak? Kalo iya gak usah bawa speda motor', 24, '', 'false'),
+('2014-08-19 09:57:21', '2013-09-26 14:28:20', '004B0061006D0075002000730061006D007000650020006D0061006E0061003F', '+6281392391934', 'Default_No_Compression', '', '+6281100000', -1, 'Kamu sampe mana?', 25, '', 'false'),
+('2014-08-19 09:57:21', '2013-09-26 14:28:20', '004B0061006D0075002000730061006D007000650020006D0061006E0061003F', '+6281392391934', 'Default_No_Compression', '', '+6281100000', -1, 'Kamu sampe mana?', 26, '', 'false'),
+('2014-08-19 09:59:22', '2014-08-19 09:59:17', '004B0061006200610072002000670065006D00620069007200610020006B0069006E0069002000490053004900200055004C0041004E0047002000610064006100200062006F006E00750073006E00790061002E002000490053004900200055004C0041004E0047002000520070002000350030005200420020004800410052004900200049004E0049002000310039004100670075007300740031003400200047005200410054004900530020003200300030003000300020006B006500200073006500730061006D006100200049006E0064006F0073006100740020006200650072006C0061006B00750020003300200068006100720069002E00200042006F006E00750073002000680061006E00790061002000310078002E00200049006E0066006F003A003100300030002E002000480052003100370032', 'Indosat', 'Default_No_Compression', '', '+62816124', -1, 'Kabar gembira kini ISI ULANG ada bonusnya. ISI ULANG Rp 50RB HARI INI 19Agust14 GRATIS 20000 ke sesama Indosat berlaku 3 hari. Bonus hanya 1x. Info:100. HR172', 27, '', 'false'),
+('2014-08-19 10:04:14', '2014-08-19 10:03:47', '00790061', '+6281805030211', 'Default_No_Compression', '', '+62818445009', -1, 'ya', 28, '', 'false');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `outbox`
+--
+
+CREATE TABLE IF NOT EXISTS `outbox` (
+  `UpdatedInDB` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `InsertIntoDB` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `SendingDateTime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `SendBefore` time NOT NULL DEFAULT '23:59:59',
+  `SendAfter` time NOT NULL DEFAULT '00:00:00',
+  `Text` text,
+  `DestinationNumber` varchar(20) NOT NULL DEFAULT '',
+  `Coding` enum('Default_No_Compression','Unicode_No_Compression','8bit','Default_Compression','Unicode_Compression') NOT NULL DEFAULT 'Default_No_Compression',
+  `UDH` text,
+  `Class` int(11) DEFAULT '-1',
+  `TextDecoded` text NOT NULL,
+  `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `MultiPart` enum('false','true') DEFAULT 'false',
+  `RelativeValidity` int(11) DEFAULT '-1',
+  `SenderID` varchar(255) DEFAULT NULL,
+  `SendingTimeOut` timestamp NULL DEFAULT '0000-00-00 00:00:00',
+  `DeliveryReport` enum('default','yes','no') DEFAULT 'default',
+  `CreatorID` text NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `outbox_date` (`SendingDateTime`,`SendingTimeOut`),
+  KEY `outbox_sender` (`SenderID`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Triggers `outbox`
+--
+DROP TRIGGER IF EXISTS `gammu`.`outbox_timestamp`;
+DELIMITER //
+CREATE TRIGGER `gammu`.`outbox_timestamp` BEFORE INSERT ON `gammu`.`outbox`
+ FOR EACH ROW BEGIN
     IF NEW.InsertIntoDB = '0000-00-00 00:00:00' THEN
         SET NEW.InsertIntoDB = CURRENT_TIMESTAMP();
     END IF;
@@ -254,29 +168,197 @@ BEGIN
     IF NEW.SendingTimeOut = '0000-00-00 00:00:00' THEN
         SET NEW.SendingTimeOut = CURRENT_TIMESTAMP();
     END IF;
-END;//
+END
+//
+DELIMITER ;
 
-CREATE TRIGGER phones_timestamp BEFORE INSERT ON phones
-FOR EACH ROW
-BEGIN
+--
+-- Dumping data untuk tabel `outbox`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `outbox_multipart`
+--
+
+CREATE TABLE IF NOT EXISTS `outbox_multipart` (
+  `Text` text,
+  `Coding` enum('Default_No_Compression','Unicode_No_Compression','8bit','Default_Compression','Unicode_Compression') NOT NULL DEFAULT 'Default_No_Compression',
+  `UDH` text,
+  `Class` int(11) DEFAULT '-1',
+  `TextDecoded` text,
+  `ID` int(10) unsigned NOT NULL DEFAULT '0',
+  `SequencePosition` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`ID`,`SequencePosition`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data untuk tabel `outbox_multipart`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `pbk`
+--
+
+CREATE TABLE IF NOT EXISTS `pbk` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `GroupID` int(11) NOT NULL DEFAULT '-1',
+  `Name` text NOT NULL,
+  `Number` text NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data untuk tabel `pbk`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `pbk_groups`
+--
+
+CREATE TABLE IF NOT EXISTS `pbk_groups` (
+  `Name` text NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data untuk tabel `pbk_groups`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `phones`
+--
+
+CREATE TABLE IF NOT EXISTS `phones` (
+  `ID` text NOT NULL,
+  `UpdatedInDB` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `InsertIntoDB` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `TimeOut` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `Send` enum('yes','no') NOT NULL DEFAULT 'no',
+  `Receive` enum('yes','no') NOT NULL DEFAULT 'no',
+  `IMEI` varchar(35) NOT NULL,
+  `Client` text NOT NULL,
+  `Battery` int(11) NOT NULL DEFAULT '-1',
+  `Signal` int(11) NOT NULL DEFAULT '-1',
+  `Sent` int(11) NOT NULL DEFAULT '0',
+  `Received` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`IMEI`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Triggers `phones`
+--
+DROP TRIGGER IF EXISTS `gammu`.`phones_timestamp`;
+DELIMITER //
+CREATE TRIGGER `gammu`.`phones_timestamp` BEFORE INSERT ON `gammu`.`phones`
+ FOR EACH ROW BEGIN
     IF NEW.InsertIntoDB = '0000-00-00 00:00:00' THEN
         SET NEW.InsertIntoDB = CURRENT_TIMESTAMP();
     END IF;
     IF NEW.TimeOut = '0000-00-00 00:00:00' THEN
         SET NEW.TimeOut = CURRENT_TIMESTAMP();
     END IF;
-END;//
+END
+//
+DELIMITER ;
 
-CREATE TRIGGER sentitems_timestamp BEFORE INSERT ON sentitems
-FOR EACH ROW
-BEGIN
+--
+-- Dumping data untuk tabel `phones`
+--
+
+INSERT INTO `phones` (`ID`, `UpdatedInDB`, `InsertIntoDB`, `TimeOut`, `Send`, `Receive`, `IMEI`, `Client`, `Battery`, `Signal`, `Sent`, `Received`) VALUES
+('', '2014-08-19 15:12:15', '2014-08-19 09:57:43', '2014-08-19 15:12:25', 'yes', 'yes', '012345678901234', 'Gammu 1.32.0, Windows Server 2007 SP1, GCC 4.7, MinGW 3.11', 0, 100, 2, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `sentitems`
+--
+
+CREATE TABLE IF NOT EXISTS `sentitems` (
+  `UpdatedInDB` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `InsertIntoDB` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `SendingDateTime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `DeliveryDateTime` timestamp NULL DEFAULT NULL,
+  `Text` text NOT NULL,
+  `DestinationNumber` varchar(20) NOT NULL DEFAULT '',
+  `Coding` enum('Default_No_Compression','Unicode_No_Compression','8bit','Default_Compression','Unicode_Compression') NOT NULL DEFAULT 'Default_No_Compression',
+  `UDH` text NOT NULL,
+  `SMSCNumber` varchar(20) NOT NULL DEFAULT '',
+  `Class` int(11) NOT NULL DEFAULT '-1',
+  `TextDecoded` text NOT NULL,
+  `ID` int(10) unsigned NOT NULL DEFAULT '0',
+  `SenderID` varchar(255) NOT NULL,
+  `SequencePosition` int(11) NOT NULL DEFAULT '1',
+  `Status` enum('SendingOK','SendingOKNoReport','SendingError','DeliveryOK','DeliveryFailed','DeliveryPending','DeliveryUnknown','Error') NOT NULL DEFAULT 'SendingOK',
+  `StatusError` int(11) NOT NULL DEFAULT '-1',
+  `TPMR` int(11) NOT NULL DEFAULT '-1',
+  `RelativeValidity` int(11) NOT NULL DEFAULT '-1',
+  `CreatorID` text NOT NULL,
+  PRIMARY KEY (`ID`,`SequencePosition`),
+  KEY `sentitems_date` (`DeliveryDateTime`),
+  KEY `sentitems_tpmr` (`TPMR`),
+  KEY `sentitems_dest` (`DestinationNumber`),
+  KEY `sentitems_sender` (`SenderID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Triggers `sentitems`
+--
+DROP TRIGGER IF EXISTS `gammu`.`sentitems_timestamp`;
+DELIMITER //
+CREATE TRIGGER `gammu`.`sentitems_timestamp` BEFORE INSERT ON `gammu`.`sentitems`
+ FOR EACH ROW BEGIN
     IF NEW.InsertIntoDB = '0000-00-00 00:00:00' THEN
         SET NEW.InsertIntoDB = CURRENT_TIMESTAMP();
     END IF;
     IF NEW.SendingDateTime = '0000-00-00 00:00:00' THEN
         SET NEW.SendingDateTime = CURRENT_TIMESTAMP();
     END IF;
-END;//
-
+END
+//
 DELIMITER ;
 
+--
+-- Dumping data untuk tabel `sentitems`
+--
+
+INSERT INTO `sentitems` (`UpdatedInDB`, `InsertIntoDB`, `SendingDateTime`, `DeliveryDateTime`, `Text`, `DestinationNumber`, `Coding`, `UDH`, `SMSCNumber`, `Class`, `TextDecoded`, `ID`, `SenderID`, `SequencePosition`, `Status`, `StatusError`, `TPMR`, `RelativeValidity`, `CreatorID`) VALUES
+('2014-08-19 10:01:47', '2014-08-19 10:01:20', '2014-08-19 10:01:47', NULL, '0072006F006C006500730079007300740065006D0020006B006F006E00730075006C0074006100730069', '081805030211', 'Default_No_Compression', '', '+62816124', -1, 'rolesystem konsultasi', 1, '', 1, 'SendingOKNoReport', -1, 233, 255, 'Gammu'),
+('2014-08-19 15:04:27', '2014-08-19 15:04:03', '2014-08-19 15:04:27', NULL, '00680061006C006F0021', '081578762345', 'Default_No_Compression', '', '+62816124', -1, 'halo!', 2, '', 1, 'SendingOKNoReport', -1, 2, 255, 'Gammu');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `users`
+--
+
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data untuk tabel `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `password`) VALUES
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3');
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

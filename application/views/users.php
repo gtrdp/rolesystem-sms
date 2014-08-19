@@ -17,7 +17,7 @@
         <td>Mark</td>
         <td>+62 815 7876 2345</td>
         <td>
-          <button type="button" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-search"></span> See logs</button>
+          <a type="button" class="btn btn-default btn-xs" href="1"><span class="glyphicon glyphicon-search"></span> See logs</a>
         </td>
       </tr>
       <tr>
@@ -25,7 +25,7 @@
         <td>John</td>
         <td>+62 815 7876 2345</td>
         <td>
-          <button type="button" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-search"></span> See logs</button>
+          <a type="button" class="btn btn-default btn-xs" href="1"><span class="glyphicon glyphicon-search"></span> See logs</a>
         </td>
       </tr>
       <tr>
@@ -33,7 +33,7 @@
         <td>Robert</td>
         <td>+62 815 7876 2345</td>
         <td>
-          <button type="button" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-search"></span> See logs</button>
+          <a type="button" class="btn btn-default btn-xs" href="1"><span class="glyphicon glyphicon-search"></span> See logs</a>
         </td>
       </tr>
       <tr>
@@ -41,7 +41,7 @@
         <td>Robin</td>
         <td>+62 815 7876 2345</td>
         <td>
-          <button type="button" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-search"></span> See logs</button>
+          <a type="button" class="btn btn-default btn-xs" href="1"><span class="glyphicon glyphicon-search"></span> See logs</a>
         </td>
       </tr>
       <tr>
@@ -49,7 +49,7 @@
         <td>Van Gaal</td>
         <td>+62 815 7876 2345</td>
         <td>
-          <button type="button" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-search"></span> See logs</button>
+          <a type="button" class="btn btn-default btn-xs" href="1"><span class="glyphicon glyphicon-search"></span> See logs</a>
         </td>
       </tr>
     </tbody>
