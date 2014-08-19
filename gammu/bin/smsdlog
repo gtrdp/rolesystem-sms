@@ -1,0 +1,14 @@
+Tue 2014/08/19 09:56:01 gammu-smsd[4056]: mysql service is deprecated. Please use SQL service with correct driver.
+Tue 2014/08/19 09:56:01 gammu-smsd[4056]: Connected to Database: gammu on localhost
+Tue 2014/08/19 09:56:01 gammu-smsd[4056]: Database structure is from older Gammu version
+Tue 2014/08/19 09:56:01 gammu-smsd[4056]: Please update database, you can find SQL scripts in documentation
+Tue 2014/08/19 09:56:01 gammu-smsd[4056]: Initialisation failed, stopping Gammu smsd: Unknown error. (UNKNOWN[27])
+Tue 2014/08/19 09:57:05 gammu-smsd[5260]: mysql service is deprecated. Please use SQL service with correct driver.
+Tue 2014/08/19 09:57:05 gammu-smsd[5260]: Connected to Database: gammu on localhost
+Tue 2014/08/19 09:57:05 gammu-smsd[5260]: Connected to Database native_mysql: gammu on localhost
+Tue 2014/08/19 09:57:05 gammu-smsd[5260]: Created Windows RW shared memory at 003F0000
+Tue 2014/08/19 09:57:05 gammu-smsd[5260]: Starting phone communication...
+Tue 2014/08/19 09:57:13 gammu-smsd[5260]: Inserting phone info
+Tue 2014/08/19 09:57:16 gammu-smsd[5260]: Read 26 messages
+Tue 2014/08/19 09:57:18 gammu-smsd[5260]: Multipart message 0x46, 2 parts of 2
+Tue 2014/08/19 09:57:22 gammu-smsd[5260]: Terminating communication...
