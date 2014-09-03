@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost/rolesystem-sms/';
+$config['base_url']	= 'http://localhost/~gtrdp/rolesystem-sms/';
 
 /*
 |--------------------------------------------------------------------------
