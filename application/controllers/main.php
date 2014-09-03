@@ -45,7 +45,22 @@ class Main extends CI_Controller {
 	{
 		$data['page'] = 'send_sms';
 
+		$data['notif'] = $this->session->flashdata('notif');
+
 		$this->load->template('send_sms', $data);
+	}
+
+	public function sms_sender()
+	{
+		$phone_number = $this->input->post('phone_number');
+		$message = $this->input->post('message');
+
+		if($phone_number != '' && $message != '') {
+			$this->main_model->send_sms($phone_number, $message);
+
+			$this->session->set_flashdata('notif', 'SMS has been sent!');
+			redirect('main/send_sms');
+		}
 	}
 
 	public function login()

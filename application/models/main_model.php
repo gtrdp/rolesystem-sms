@@ -18,4 +18,14 @@ class Main_model extends CI_Model {
 	{
 		return $this->db->get('clients');
 	}
+
+	public function send_sms($phone_number, $message)
+	{
+		$data = array(	'DestinationNumber' => $phone_number,
+						'TextDecoded' => $message,
+						'CreatorID' => 'Gammu'
+					);
+
+		$this->db->insert('outbox', $data);
+	}
 }
