@@ -20,7 +20,15 @@ Tutorials
 
 To-do
 -----
-- Develop the admin application using CI.
+- Dashboard page statistics:
+	- registered number
+	- total cases
+	- SMS cound
+	- case solved
+	- total balance
+	- SPAM counter
+- Logs per users.
+- Processor script adjusments according dashboard statistics.
 
 Development Log
 ---------------
