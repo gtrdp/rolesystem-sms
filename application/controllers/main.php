@@ -19,6 +19,9 @@ class Main extends CI_Controller {
 		$data['page'] = 'dashboard';
 		$data['page_title'] = 'Dashboard';
 
+		// load statistics
+		$data['stats'] = $this->main_model->get_stats();
+
 		$this->load->template('dashboard', $data);
 	}
 

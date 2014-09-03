@@ -29,6 +29,7 @@ To-do
 	- SPAM counter
 - Logs per users.
 - Processor script adjusments according dashboard statistics.
+- Dumping the new SQL Dump Tables.
 
 Development Log
 ---------------
