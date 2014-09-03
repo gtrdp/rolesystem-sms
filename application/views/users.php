@@ -12,46 +12,18 @@
       </tr>
     </thead>
     <tbody>
+      <?php $i = 1; foreach($clients->result() as $row): ?>
       <tr>
-        <td>1</td>
-        <td>Mark</td>
-        <td>+62 815 7876 2345</td>
+        <td><?php echo $i++; ?></td>
+        <td><?php echo $row->client_name; ?></td>
+        <td><?php echo $row->phone_number; ?></td>
         <td>
-          <a type="button" class="btn btn-default btn-xs" href="1"><span class="glyphicon glyphicon-search"></span> See logs</a>
+          <a type="button" class="btn btn-default btn-xs" href="<?php echo site_url('main/logs/') . '/' . $row->id; ?>">
+            <span class="glyphicon glyphicon-search"></span> See logs
+          </a>
         </td>
       </tr>
-      <tr>
-        <td>2</td>
-        <td>John</td>
-        <td>+62 815 7876 2345</td>
-        <td>
-          <a type="button" class="btn btn-default btn-xs" href="1"><span class="glyphicon glyphicon-search"></span> See logs</a>
-        </td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>Robert</td>
-        <td>+62 815 7876 2345</td>
-        <td>
-          <a type="button" class="btn btn-default btn-xs" href="1"><span class="glyphicon glyphicon-search"></span> See logs</a>
-        </td>
-      </tr>
-      <tr>
-        <td>4</td>
-        <td>Robin</td>
-        <td>+62 815 7876 2345</td>
-        <td>
-          <a type="button" class="btn btn-default btn-xs" href="1"><span class="glyphicon glyphicon-search"></span> See logs</a>
-        </td>
-      </tr>
-      <tr>
-        <td>5</td>
-        <td>Van Gaal</td>
-        <td>+62 815 7876 2345</td>
-        <td>
-          <a type="button" class="btn btn-default btn-xs" href="1"><span class="glyphicon glyphicon-search"></span> See logs</a>
-        </td>
-      </tr>
+      <?php endforeach; ?>
     </tbody>
   </table>
 </div>

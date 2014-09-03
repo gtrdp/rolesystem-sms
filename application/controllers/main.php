@@ -2,6 +2,13 @@
 
 class Main extends CI_Controller {
 
+	public function __construct()
+	{
+		parent::__construct();
+
+		$this->load->model('main_model');
+	}
+
 	public function index()
 	{
 		redirect('main/login');
@@ -17,6 +24,8 @@ class Main extends CI_Controller {
 	public function users()
 	{
 		$data['page'] = 'users';
+
+		$data['clients'] = $this->main_model->get_clients();
 
 		$this->load->template('users', $data);
 	}
@@ -52,7 +61,6 @@ class Main extends CI_Controller {
 		$username = $this->input->post('username');
 		$password = md5($this->input->post('password'));
 
-		$this->load->model('main_model');
 		$result = $this->main_model->login_check($username, $password);
 
 		if($result){

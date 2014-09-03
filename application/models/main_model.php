@@ -13,4 +13,9 @@ class Main_model extends CI_Model {
 		else
 			return false;
 	}
+
+	public function get_clients()
+	{
+		return $this->db->get('clients');
+	}
 }
