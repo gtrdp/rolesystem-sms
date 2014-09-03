@@ -30,8 +30,9 @@ $raw_data = $mysqli->query($query);
 
 // main loop (just in case there are several messages)
 while($row = $raw_data->fetch_object()) {
-	$phone_number = $row->SenderNumber();
+	$phone_number = $row->SenderNumber;
 	$message = $row->TextDecoded;
+	$message_id = $row->ID;
 
 	// main message switch case
 	if(substr($message, 0, 3) == 'REG'){
@@ -43,7 +44,7 @@ while($row = $raw_data->fetch_object()) {
 			$client_name = trim(substr($message, 3));
 
 			// register the number
-			$mysqli->query("INSERT INTO clients (phone_number, client_name) VALUES ('$phone_number', '$client_name')");
+			$mysqli->query("INSERT INTO clients (phone_number, client_name, status) VALUES ('$phone_number', '$client_name', '0')");
 			
 			// give a success response
 			$query = "INSERT INTO outbox (DestinationNumber, TextDecoded, CreatorID) ".
@@ -80,7 +81,7 @@ while($row = $raw_data->fetch_object()) {
 
 				// change user status
 				$mysqli->query("UPDATE clients SET status = '1' WHERE phone_number = '$phone_number'");
-
+				
 				// END
 			}elseif($status == '1'){
 				// second condition, send case list
@@ -112,13 +113,13 @@ while($row = $raw_data->fetch_object()) {
 					// new status: kasusID;role_identnext;answer_identnext;ke
 					$new_status = $message.';'.$case->role_identnext.';'.$case->answer_identnext.';1';
 					$mysqli->query("UPDATE clients SET status = '$new_status' WHERE phone_number = '$phone_number'");
-
+					
 					// END
 				}
 			}else{
 				// might be in consulting process, send appropriate response
 				// identical to ident_gejala2.php in rolesystems
-				if(strlen($message) != 1){
+				if($message != 'Y' && $message != 'N'){
 					// wrong format, sends error
 					$query = "INSERT INTO outbox (DestinationNumber, TextDecoded, CreatorID) ".
 						 	 "VALUES ('$phone_number', 'Mohon maaf, terjadi error, silakan mulai dari awal.', 'Gammu')";
@@ -184,8 +185,16 @@ while($row = $raw_data->fetch_object()) {
 			$query = "INSERT INTO outbox (DestinationNumber, TextDecoded, CreatorID) ".
 					 "VALUES ('$phone_number', 'Maaf, anda belum terdaftar, silakan daftar dengan REG <nama>.', 'Gammu')";
 			$mysqli->query($query);
+
+			// Change the status
+			$query = "UPDATE inbox SET Processed = 'true' WHERE ID = '$message_id'";
+			$mysqli->query($query);
 		}
 	}
+
+	// Change the status
+	$query = "UPDATE inbox SET Processed = 'true' WHERE ID = '$message_id'";
+	$mysqli->query($query);
 }
 
 ?>
