@@ -29,6 +29,7 @@ Development Log
 - Gammu has worked since a couple weeks ago.
 - SMS Processor script is now fully working.
 - Users page, Send SMS page are now OK.
+- All features are now OK, communication logs left.
 
 *Tue Aug 19 08:52:00 WIB 2014*
 - Login page is now working.
