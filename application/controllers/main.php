@@ -29,6 +29,7 @@ class Main extends CI_Controller {
 	{
 		$data['page'] = 'users';
 		$data['page_title'] = 'Users';
+		$data['notif'] = $this->session->flashdata('notif');
 
 		$data['clients'] = $this->main_model->get_clients();
 
@@ -43,6 +44,7 @@ class Main extends CI_Controller {
 
 			$this->load->template('logs', $data);
 		}else{
+			$this->session->set_flashdata('notif', 'Please open from the "See logs" links in registered numbers table!');
 			redirect('main/users');
 		}
 	}

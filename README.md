@@ -20,15 +20,7 @@ Tutorials
 
 To-do
 -----
-- Dashboard page statistics:
-	- registered number
-	- total cases
-	- SMS cound
-	- case solved
-	- total balance
-	- SPAM counter
 - Logs per users.
-- Processor script adjusments according dashboard statistics.
 - Dumping the new SQL Dump Tables.
 
 Development Log

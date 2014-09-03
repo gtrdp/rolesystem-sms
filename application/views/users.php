@@ -1,6 +1,12 @@
 
 <div class="content">
   <h1>Registered Numbers</h1>
+  
+  <?php if($notif): ?>
+    <div class="alert alert-danger alert-dismissable">
+      <strong>Error!</strong> <?php echo $notif; ?>
+    </div>
+  <?php endif; ?>
 
   <table class="table table-hover">
     <thead>
