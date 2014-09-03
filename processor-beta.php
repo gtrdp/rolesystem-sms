@@ -135,6 +135,7 @@ while($row = $raw_data->fetch_object()) {
 
 					// explode the status
 					// kasusID;role_identnext;answer_identnext;ke
+					// K1;G2;0;1
 					$status = explode(";", $status);
 					$kasus_id = $status[0];
 					$role_identnext = $status[1];
@@ -144,8 +145,7 @@ while($row = $raw_data->fetch_object()) {
 					// main switching
 					if($answer_identnext == '0'){
 						// next question
-						$case = $rolesystem->query("SELECT * FROM tab_role LEFT JOIN tab_gejala ON tab_gejala.gjl_id=tab_role.role_ident 
-						WHERE role_kasus='$kasusid' && role_start=0 && role_ident='$role_identnext' ")->fetch_object();
+						$case = $rolesystem->query("SELECT * FROM tab_role LEFT JOIN tab_gejala ON tab_gejala.gjl_id=tab_role.role_ident WHERE role_kasus='$kasus_id' && role_start=0 && role_ident='$role_identnext'")->fetch_object();
 
 						$user_message = "Pertanyaan ke-$ke:\r\n".$case->gjl_tanya . "\r\nJawab dengan Y / N.";
 
@@ -162,7 +162,7 @@ while($row = $raw_data->fetch_object()) {
 						// END
 					}elseif ($answer_identnext == '1') {
 						// decision
-						$decision = $mysqli->query("SELECT * FROM tab_diag WHERE diag_id='$role_identnext'")->fetch_object();
+						$decision = $rolesystem->query("SELECT * FROM tab_diag WHERE diag_id='$role_identnext'")->fetch_object();
 
 						$user_message = 'Diagnosis: ' . $decision->diag_hasil;
 						$user_message.= "\r\nSaran: " . $decision->diag_saran;
