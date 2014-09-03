@@ -55,6 +55,10 @@ while($row = $raw_data->fetch_object()) {
 			$query = "INSERT INTO outbox (DestinationNumber, TextDecoded, CreatorID) ".
 					 "VALUES ('$phone_number', 'Maaf, anda telah terdaftar, silakan mulai konsultasi dengan mengetikkan START.', 'Gammu')";
 			$mysqli->query($query);
+
+			// update case spam count
+			$current_count = $mysqli->query("SELECT spam_counter FROM stats WHERE id = 1")->fetch_object()->spam_counter + 1;
+			$mysqli->query("UPDATE stats SET spam_counter = $current_count WHERE id = 1");
 		}
 	}else{
 		// check whether the number is already registered
@@ -95,6 +99,10 @@ while($row = $raw_data->fetch_object()) {
 					// reset number status
 					$mysqli->query("UPDATE clients SET status = '0' WHERE phone_number = '$phone_number'");
 
+					// update case spam count
+					$current_count = $mysqli->query("SELECT spam_counter FROM stats WHERE id = 1")->fetch_object()->spam_counter + 1;
+					$mysqli->query("UPDATE stats SET spam_counter = $current_count WHERE id = 1");
+
 					// END
 				}else{
 					// correct format
@@ -127,6 +135,10 @@ while($row = $raw_data->fetch_object()) {
 
 					// reset number status
 					$mysqli->query("UPDATE clients SET status = '0' WHERE phone_number = '$phone_number'");
+
+					// update case spam count
+					$current_count = $mysqli->query("SELECT spam_counter FROM stats WHERE id = 1")->fetch_object()->spam_counter + 1;
+					$mysqli->query("UPDATE stats SET spam_counter = $current_count WHERE id = 1");
 
 					// END
 				}else{
@@ -175,6 +187,10 @@ while($row = $raw_data->fetch_object()) {
 						// reset status
 						$mysqli->query("UPDATE clients SET status = '0' WHERE phone_number = '$phone_number'");
 
+						// update case solved count
+						$current_count = $mysqli->query("SELECT case_solved FROM stats WHERE id = 1")->fetch_object()->case_solved + 1;
+						$mysqli->query("UPDATE stats SET case_solved = $current_count WHERE id = 1");
+
 						// END
 					}
 				}
@@ -189,12 +205,20 @@ while($row = $raw_data->fetch_object()) {
 			// Change the status
 			$query = "UPDATE inbox SET Processed = 'true' WHERE ID = '$message_id'";
 			$mysqli->query($query);
+
+			// update case spam count
+			$current_count = $mysqli->query("SELECT spam_counter FROM stats WHERE id = 1")->fetch_object()->spam_counter + 1;
+			$mysqli->query("UPDATE stats SET spam_counter = $current_count WHERE id = 1");
 		}
 	}
 
 	// Change the status
 	$query = "UPDATE inbox SET Processed = 'true' WHERE ID = '$message_id'";
 	$mysqli->query($query);
+
+	// update sms count
+	$current_count = $mysqli->query("SELECT sms_count FROM stats WHERE id = 1")->fetch_object()->sms_count + 1;
+	$mysqli->query("UPDATE stats SET sms_count = $current_count WHERE id = 1");
 }
 
 ?>
