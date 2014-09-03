@@ -5,6 +5,7 @@ SMS interface for Rolesystem, a consulting application.
 How to Install
 --------------
 - Please install Gammu before proceeding to the next step. The recommended version for gammu is: 1.29.x.
+- You can find fully working tutorial [here](http://toekangmodem.blogspot.com/2013/05/cara-mudah-install-gammu-windows-dan-kalkun-part-1-persiapan-gammu.html).
 
 Tutorials
 ---------
@@ -19,12 +20,15 @@ Tutorials
 
 To-do
 -----
-- Make Gammu works. >> Try to user kalkun.
 - Develop the admin application using CI.
-- Test and debug processor.php.
 
 Development Log
 ---------------
+*Wed Sep  3 15:12:39 WIB 2014*
+- Gammu has worked since a couple weeks ago.
+- SMS Processor script is now fully working.
+- Users page, Send SMS page are now OK.
+
 *Tue Aug 19 08:52:00 WIB 2014*
 - Login page is now working.
 
