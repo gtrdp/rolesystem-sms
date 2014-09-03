@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 03, 2014 at 07:15 AM
+-- Generation Time: Sep 03, 2014 at 02:39 PM
 -- Server version: 5.5.27-log
 -- PHP Version: 5.4.24
 
@@ -32,14 +32,15 @@ CREATE TABLE IF NOT EXISTS `clients` (
   `client_name` varchar(30) NOT NULL,
   `status` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `clients`
 --
 
 INSERT INTO `clients` (`id`, `phone_number`, `client_name`, `status`) VALUES
-(1, '+6281805030211', 'guntur', '0');
+(1, '+6281805030211', 'guntur', '0'),
+(2, '+6281578762345', 'john', '0');
 
 -- --------------------------------------------------------
 
@@ -96,8 +97,8 @@ CREATE TABLE IF NOT EXISTS `inbox` (
 --
 
 INSERT INTO `inbox` (`UpdatedInDB`, `ReceivingDateTime`, `Text`, `SenderNumber`, `Coding`, `UDH`, `SMSCNumber`, `Class`, `TextDecoded`, `ID`, `RecipientID`, `Processed`) VALUES
-('2014-09-02 02:50:36', '2014-08-19 02:59:17', '004B0061006200610072002000670065006D00620069007200610020006B0069006E0069002000490053004900200055004C0041004E0047002000610064006100200062006F006E00750073006E00790061002E002000490053004900200055004C0041004E0047002000520070002000350030005200420020004800410052004900200049004E0049002000310039004100670075007300740031003400200047005200410054004900530020003200300030003000300020006B006500200073006500730061006D006100200049006E0064006F0073006100740020006200650072006C0061006B00750020003300200068006100720069002E00200042006F006E00750073002000680061006E00790061002000310078002E00200049006E0066006F003A003100300030002E002000480052003100370032', 'Indosat', 'Default_No_Compression', '', '+62816124', -1, 'Kabar gembira kini ISI ULANG ada bonusnya. ISI ULANG Rp 50RB HARI INI 19Agust14 GRATIS 20000 ke sesama Indosat berlaku 3 hari. Bonus hanya 1x. Info:100. HR172', 27, '', 'true'),
-('2014-09-03 07:06:42', '2014-08-19 03:03:47', '00790061', '+6281805030211', 'Default_No_Compression', '', '+62818445009', -1, 'Y', 28, '', 'false');
+('2014-09-03 14:31:05', '2014-08-19 02:59:17', '004B0061006200610072002000670065006D00620069007200610020006B0069006E0069002000490053004900200055004C0041004E0047002000610064006100200062006F006E00750073006E00790061002E002000490053004900200055004C0041004E0047002000520070002000350030005200420020004800410052004900200049004E0049002000310039004100670075007300740031003400200047005200410054004900530020003200300030003000300020006B006500200073006500730061006D006100200049006E0064006F0073006100740020006200650072006C0061006B00750020003300200068006100720069002E00200042006F006E00750073002000680061006E00790061002000310078002E00200049006E0066006F003A003100300030002E002000480052003100370032', '+6281578762345', 'Default_No_Compression', '', '+62816124', -1, 'REG john', 27, '', 'true'),
+('2014-09-03 14:33:02', '2014-08-19 03:03:47', '00790061', '+6281805030211', 'Default_No_Compression', '', '+62818445009', -1, 'N', 28, '', 'true');
 
 --
 -- Triggers `inbox`
@@ -141,7 +142,32 @@ CREATE TABLE IF NOT EXISTS `outbox` (
   PRIMARY KEY (`ID`),
   KEY `outbox_date` (`SendingDateTime`,`SendingTimeOut`),
   KEY `outbox_sender` (`SenderID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
+
+--
+-- Dumping data for table `outbox`
+--
+
+INSERT INTO `outbox` (`UpdatedInDB`, `InsertIntoDB`, `SendingDateTime`, `SendBefore`, `SendAfter`, `Text`, `DestinationNumber`, `Coding`, `UDH`, `Class`, `TextDecoded`, `ID`, `MultiPart`, `RelativeValidity`, `SenderID`, `SendingTimeOut`, `DeliveryReport`, `CreatorID`) VALUES
+('2014-09-03 07:16:07', '2014-09-03 07:16:07', '2014-09-03 07:16:07', '23:59:59', '00:00:00', NULL, '+6281805030211', 'Default_No_Compression', NULL, -1, 'Silakan pilih kasus di bawah ini:\r\nDemam Berdarah (K1)Batuk Berdahak (K2)', 1, 'false', -1, NULL, '2014-09-03 07:16:07', 'default', 'Gammu'),
+('2014-09-03 07:16:33', '2014-09-03 07:16:33', '2014-09-03 07:16:33', '23:59:59', '00:00:00', NULL, '+6281805030211', 'Default_No_Compression', NULL, -1, 'Mohon maaf, terjadi error, silakan mulai dari awal.', 2, 'false', -1, NULL, '2014-09-03 07:16:33', 'default', 'Gammu'),
+('2014-09-03 07:16:56', '2014-09-03 07:16:56', '2014-09-03 07:16:56', '23:59:59', '00:00:00', NULL, '+6281805030211', 'Default_No_Compression', NULL, -1, 'Silakan pilih kasus di bawah ini:\r\nDemam Berdarah (K1)Batuk Berdahak (K2)', 3, 'false', -1, NULL, '2014-09-03 07:16:56', 'default', 'Gammu'),
+('2014-09-03 07:17:56', '2014-09-03 07:17:11', '2014-09-03 07:17:11', '23:59:59', '00:00:00', NULL, '+6281805030211', 'Default_No_Compression', NULL, -1, 'Apakah terdapat bintik-bintik merah di sekitar kulit?\nJawab dengan Y / N.', 4, 'false', -1, NULL, '2014-09-03 07:17:11', 'default', 'Gammu'),
+('2014-09-03 07:17:32', '2014-09-03 07:17:32', '2014-09-03 07:17:32', '23:59:59', '00:00:00', NULL, '+6281805030211', 'Default_No_Compression', NULL, -1, 'Mohon maaf, terjadi error, silakan mulai dari awal.', 5, 'false', -1, NULL, '2014-09-03 07:17:32', 'default', 'Gammu'),
+('2014-09-03 07:26:35', '2014-09-03 07:26:35', '2014-09-03 07:26:35', '23:59:59', '00:00:00', NULL, '+6281805030211', 'Default_No_Compression', NULL, -1, 'Silakan pilih kasus di bawah ini:\r\nDemam Berdarah (K1)Batuk Berdahak (K2)', 6, 'false', -1, NULL, '2014-09-03 07:26:35', 'default', 'Gammu'),
+('2014-09-03 07:26:45', '2014-09-03 07:26:45', '2014-09-03 07:26:45', '23:59:59', '00:00:00', NULL, '+6281805030211', 'Default_No_Compression', NULL, -1, 'Apakah terdapat bintik-bintik merah di sekitar kulit?\r\nJawab dengan Y / N.', 7, 'false', -1, NULL, '2014-09-03 07:26:45', 'default', 'Gammu'),
+('2014-09-03 07:27:08', '2014-09-03 07:27:08', '2014-09-03 07:27:08', '23:59:59', '00:00:00', NULL, '+6281805030211', 'Default_No_Compression', NULL, -1, 'Pertanyaan ke-2:\r\nApakah demam terjadi secara mendadak?\r\nJawab dengan Y / N.', 8, 'false', -1, NULL, '2014-09-03 07:27:08', 'default', 'Gammu'),
+('2014-09-03 07:27:29', '2014-09-03 07:27:29', '2014-09-03 07:27:29', '23:59:59', '00:00:00', NULL, '+6281805030211', 'Default_No_Compression', NULL, -1, 'Diagnosis: Demam Berdarah Akut\r\nSaran: Segera ke dokter. Pertolongan pertama minum obat.', 9, 'false', -1, NULL, '2014-09-03 07:27:29', 'default', 'Gammu'),
+('2014-09-03 07:53:23', '2014-09-03 07:53:23', '2014-09-03 07:53:23', '23:59:59', '00:00:00', NULL, '081578762345', 'Default_No_Compression', NULL, -1, 'coba!', 10, 'false', -1, NULL, '2014-09-03 07:53:23', 'default', 'Gammu'),
+('2014-09-03 07:55:41', '2014-09-03 07:55:41', '2014-09-03 07:55:41', '23:59:59', '00:00:00', NULL, '081578762345', 'Default_No_Compression', NULL, -1, 'hello world!', 11, 'false', -1, NULL, '2014-09-03 07:55:41', 'default', 'Gammu'),
+('2014-09-03 13:43:01', '2014-09-03 13:43:01', '2014-09-03 13:43:01', '23:59:59', '00:00:00', NULL, '+6281578762345', 'Default_No_Compression', NULL, -1, 'Terimakasih. Anda telah terdaftar.', 12, 'false', -1, NULL, '2014-09-03 13:43:01', 'default', 'Gammu'),
+('2014-09-03 14:25:56', '2014-09-03 14:25:56', '2014-09-03 14:25:56', '23:59:59', '00:00:00', NULL, '+6281805030211', 'Default_No_Compression', NULL, -1, 'Silakan pilih kasus di bawah ini:\r\nDemam Berdarah (K1)Batuk Berdahak (K2)', 13, 'false', -1, NULL, '2014-09-03 14:25:56', 'default', 'Gammu'),
+('2014-09-03 14:26:15', '2014-09-03 14:26:15', '2014-09-03 14:26:15', '23:59:59', '00:00:00', NULL, '+6281805030211', 'Default_No_Compression', NULL, -1, 'Apakah terdapat bintik-bintik merah di sekitar kulit?\r\nJawab dengan Y / N.', 14, 'false', -1, NULL, '2014-09-03 14:26:15', 'default', 'Gammu'),
+('2014-09-03 14:31:05', '2014-09-03 14:31:05', '2014-09-03 14:31:05', '23:59:59', '00:00:00', NULL, '+6281578762345', 'Default_No_Compression', NULL, -1, 'Maaf, anda telah terdaftar, silakan mulai konsultasi dengan mengetikkan START.', 15, 'false', -1, NULL, '2014-09-03 14:31:05', 'default', 'Gammu'),
+('2014-09-03 14:32:08', '2014-09-03 14:32:08', '2014-09-03 14:32:08', '23:59:59', '00:00:00', NULL, '+6281805030211', 'Default_No_Compression', NULL, -1, 'Silakan pilih kasus di bawah ini:\r\nDemam Berdarah (K1)Batuk Berdahak (K2)', 16, 'false', -1, NULL, '2014-09-03 14:32:08', 'default', 'Gammu'),
+('2014-09-03 14:32:33', '2014-09-03 14:32:33', '2014-09-03 14:32:33', '23:59:59', '00:00:00', NULL, '+6281805030211', 'Default_No_Compression', NULL, -1, 'Apakah terdapat bintik-bintik merah di sekitar kulit?\r\nJawab dengan Y / N.', 17, 'false', -1, NULL, '2014-09-03 14:32:33', 'default', 'Gammu'),
+('2014-09-03 14:32:47', '2014-09-03 14:32:47', '2014-09-03 14:32:47', '23:59:59', '00:00:00', NULL, '+6281805030211', 'Default_No_Compression', NULL, -1, 'Pertanyaan ke-2:\r\nApakah demam terjadi secara mendadak?\r\nJawab dengan Y / N.', 18, 'false', -1, NULL, '2014-09-03 14:32:47', 'default', 'Gammu'),
+('2014-09-03 14:33:02', '2014-09-03 14:33:02', '2014-09-03 14:33:02', '23:59:59', '00:00:00', NULL, '+6281805030211', 'Default_No_Compression', NULL, -1, 'Diagnosis: Demam Berdarah Akut\r\nSaran: Segera ke dokter. Pertolongan pertama minum obat.', 19, 'false', -1, NULL, '2014-09-03 14:33:02', 'default', 'Gammu');
 
 --
 -- Triggers `outbox`
@@ -309,6 +335,28 @@ CREATE TRIGGER `sentitems_timestamp` BEFORE INSERT ON `sentitems`
 END
 //
 DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `stats`
+--
+
+CREATE TABLE IF NOT EXISTS `stats` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `case_solved` int(11) NOT NULL,
+  `sms_count` int(11) NOT NULL,
+  `sms_tariff` int(11) NOT NULL,
+  `spam_counter` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `stats`
+--
+
+INSERT INTO `stats` (`id`, `case_solved`, `sms_count`, `sms_tariff`, `spam_counter`) VALUES
+(1, 1, 7, 350, 1);
 
 -- --------------------------------------------------------
 
