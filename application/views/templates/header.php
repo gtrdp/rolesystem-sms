@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Dashboard | Rolesystem SMS</title>
+    <title><?php echo $page_title; ?> | Rolesystem SMS</title>
 
     <!-- Bootstrap core CSS -->
     <link href="<?php echo site_url('assets/css'); ?>/bootstrap.min.css" rel="stylesheet">

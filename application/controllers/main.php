@@ -17,6 +17,7 @@ class Main extends CI_Controller {
 	public function dashboard()
 	{
 		$data['page'] = 'dashboard';
+		$data['page_title'] = 'Dashboard';
 
 		$this->load->template('dashboard', $data);
 	}
@@ -24,6 +25,7 @@ class Main extends CI_Controller {
 	public function users()
 	{
 		$data['page'] = 'users';
+		$data['page_title'] = 'Users';
 
 		$data['clients'] = $this->main_model->get_clients();
 
@@ -34,6 +36,7 @@ class Main extends CI_Controller {
 	{
 		if($id != ''){
 			$data['page'] = 'logs';
+			$data['page_title'] = 'Logs';
 
 			$this->load->template('logs', $data);
 		}else{
@@ -44,6 +47,7 @@ class Main extends CI_Controller {
 	public function send_sms()
 	{
 		$data['page'] = 'send_sms';
+		$data['page_title'] = 'Send SMS';
 
 		$data['notif'] = $this->session->flashdata('notif');
 
@@ -66,6 +70,7 @@ class Main extends CI_Controller {
 	public function login()
 	{
 		$data['page'] = 'login';
+		$data['page_title'] = 'Login';
 		$data['notif'] = $this->session->flashdata('notif');
 
 		$this->load->view('login', $data);
