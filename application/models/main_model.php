@@ -55,4 +55,49 @@ class Main_model extends CI_Model {
 
 		return $result;
 	}
+
+	public function get_number_from_id($id = 0)
+	{
+		return $this->db->where('id', $id)->get('clients')->row()->phone_number;
+	}
+
+	public function get_logs($phone_number = '', $sorting = 'DESC')
+	{
+		$logs = array();
+
+		function ascending( $a, $b ) {
+		    return strtotime($a["date"]) - strtotime($b["date"]);
+		}
+
+		function descending( $a, $b ) {
+		    return strtotime($b["date"]) - strtotime($a["date"]);
+		}
+
+		// fetch inbox
+		$result = $this->db->where('SenderNumber', $phone_number)
+						   ->get('inbox');
+		foreach ($result->result() as $row) {
+			array_push($logs, array(	'date' => $row->ReceivingDateTime,
+										'message' => $row->TextDecoded,
+										'type' => 'in')
+			);
+		}
+
+		// fetch sent item
+		$result = $this->db->where('DestinationNumber', $phone_number)
+						   ->get('sentitems');
+		foreach ($result->result() as $row) {
+			array_push($logs, array(	'date' => $row->SendingDateTime,
+										'message' => $row->TextDecoded,
+										'type' => 'out')
+			);
+		}
+
+		if($sorting == 'DESC')
+			usort($logs, "descending");
+		else
+			usort($logs, "ascending");
+		
+		return $logs;
+	}
 }

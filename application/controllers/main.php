@@ -9,6 +9,13 @@ class Main extends CI_Controller {
 		$this->load->model('main_model');
 	}
 
+	private function check_login_session()
+	{
+		if($this->session->userdata('userid') == ''){
+			redirect('main/index');
+		}
+	}
+
 	public function index()
 	{
 		redirect('main/login');
@@ -16,6 +23,8 @@ class Main extends CI_Controller {
 
 	public function dashboard()
 	{
+		$this->check_login_session();
+
 		$data['page'] = 'dashboard';
 		$data['page_title'] = 'Dashboard';
 
@@ -27,6 +36,8 @@ class Main extends CI_Controller {
 
 	public function users()
 	{
+		$this->check_login_session();
+
 		$data['page'] = 'users';
 		$data['page_title'] = 'Users';
 		$data['notif'] = $this->session->flashdata('notif');
@@ -38,7 +49,18 @@ class Main extends CI_Controller {
 
 	public function logs($id = '')
 	{
+		$this->check_login_session();
+
 		if($id != ''){
+			$sorting = strtoupper($this->input->get('sorting'));
+			$phone_number = $this->main_model->get_number_from_id($id);
+			$data['logs'] = $this->main_model->get_logs($phone_number, $sorting);
+			
+			if($sorting == 'ASC')
+				$data['sorting_link'] = site_url('main/logs/'.$id.'/?sorting=desc');
+			else
+				$data['sorting_link'] = site_url('main/logs/'.$id.'/?sorting=asc');
+
 			$data['page'] = 'logs';
 			$data['page_title'] = 'Logs';
 
@@ -51,6 +73,8 @@ class Main extends CI_Controller {
 
 	public function send_sms()
 	{
+		$this->check_login_session();
+
 		$data['page'] = 'send_sms';
 		$data['page_title'] = 'Send SMS';
 
@@ -61,6 +85,8 @@ class Main extends CI_Controller {
 
 	public function sms_sender()
 	{
+		$this->check_login_session();
+
 		$phone_number = $this->input->post('phone_number');
 		$message = $this->input->post('message');
 

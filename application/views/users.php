@@ -3,7 +3,7 @@
   <h1>Registered Numbers</h1>
   
   <?php if($notif): ?>
-    <div class="alert alert-danger alert-dismissable">
+    <div class="alert alert-warning alert-dismissable">
       <strong>Error!</strong> <?php echo $notif; ?>
     </div>
   <?php endif; ?>
@@ -24,7 +24,7 @@
         <td><?php echo $row->client_name; ?></td>
         <td><?php echo $row->phone_number; ?></td>
         <td>
-          <a type="button" class="btn btn-default btn-xs" href="<?php echo site_url('main/logs/') . '/' . $row->id; ?>">
+          <a type="button" class="btn btn-default btn-xs" href="<?php echo site_url('main/logs/') . '/' . $row->id . '/?sorting=desc'; ?>">
             <span class="glyphicon glyphicon-search"></span> See logs
           </a>
         </td>

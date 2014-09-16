@@ -20,8 +20,7 @@ Tutorials
 
 To-do
 -----
-- Logs per users.
-- Dumping the new SQL Dump Tables.
+- Look for possible bugs.
 
 Development Log
 ---------------

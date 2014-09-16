@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 16, 2014 at 03:08 AM
+-- Generation Time: Sep 16, 2014 at 04:35 PM
 -- Server version: 5.5.27-log
 -- PHP Version: 5.4.24
 
@@ -316,8 +316,8 @@ CREATE TABLE IF NOT EXISTS `sentitems` (
 --
 
 INSERT INTO `sentitems` (`UpdatedInDB`, `InsertIntoDB`, `SendingDateTime`, `DeliveryDateTime`, `Text`, `DestinationNumber`, `Coding`, `UDH`, `SMSCNumber`, `Class`, `TextDecoded`, `ID`, `SenderID`, `SequencePosition`, `Status`, `StatusError`, `TPMR`, `RelativeValidity`, `CreatorID`) VALUES
-('2014-08-19 03:01:47', '2014-08-19 03:01:20', '2014-08-19 03:01:47', NULL, '0072006F006C006500730079007300740065006D0020006B006F006E00730075006C0074006100730069', '081805030211', 'Default_No_Compression', '', '+62816124', -1, 'rolesystem konsultasi', 1, '', 1, 'SendingOKNoReport', -1, 233, 255, 'Gammu'),
-('2014-08-19 08:04:27', '2014-08-19 08:04:03', '2014-08-19 08:04:27', NULL, '00680061006C006F0021', '081578762345', 'Default_No_Compression', '', '+62816124', -1, 'halo!', 2, '', 1, 'SendingOKNoReport', -1, 2, 255, 'Gammu');
+('2014-09-16 15:56:03', '2014-08-19 03:01:20', '2014-08-19 03:01:47', NULL, '0072006F006C006500730079007300740065006D0020006B006F006E00730075006C0074006100730069', '+6281578762345', 'Default_No_Compression', '', '+62816124', -1, 'rolesystem konsultasi', 1, '', 1, 'SendingOKNoReport', -1, 233, 255, 'Gammu'),
+('2014-09-16 15:56:05', '2014-08-19 08:04:03', '2014-08-19 08:04:27', NULL, '00680061006C006F0021', '+6281578762345', 'Default_No_Compression', '', '+62816124', -1, 'halo!', 2, '', 1, 'SendingOKNoReport', -1, 2, 255, 'Gammu');
 
 --
 -- Triggers `sentitems`
